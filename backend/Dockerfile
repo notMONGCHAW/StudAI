@@ -1,32 +1,35 @@
-# Use the official Python image from Docker Hub
-FROM python:3.12-slim
+# Use the official Python image
+FROM python:3.9-slim
 
-# Install build dependencies, including distutils and git
+# Install system dependencies and clean up
 RUN apt-get update && apt-get install -y \
     build-essential \
-    python3-distutils \
     python3-dev \
-    git \
-    ffmpeg \
-    libsndfile1-dev \
+    libpq-dev \
+    postgresql-client \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the requirements file
+# Copy only the requirements file first to leverage Docker caching
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --upgrade pip setuptools wheel \
-    && pip install --no-cache-dir -r requirements.txt
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
 
-# Copy the entire application code
+# Install PyTorch directly from the official command
+RUN pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Install other dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
 COPY . .
 
 # Expose the port the app runs on
 EXPOSE 8000
 
 # Command to run the application
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
