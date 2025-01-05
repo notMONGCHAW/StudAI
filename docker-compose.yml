@@ -1,9 +1,8 @@
-# docker-compose.yml
 services:
   web:
     build:
-      context: .  # . and ./ are same
-      dockerfile: backend/Dockerfile
+      context: ./backend  # Changed to ./backend
+      dockerfile: Dockerfile  # Simplified dockerfile path
     ports:
       - "8000:8000"
     depends_on:
@@ -11,44 +10,35 @@ services:
         condition: service_healthy
     environment:
       PYTHONPATH: /app
-      DATABASE_HOST: "db"
+      DATABASE_HOST: "dpg-ctshm8q3esus73dqer0g-a.oregon-postgres.render.com"
       DATABASE_PORT: ${DB_PORT}
       DATABASE_USER: ${DB_USERNAME}
       DATABASE_PASSWORD: ${DB_PASSWORD}
       DATABASE_NAME: ${DB_NAME}
       DATABASE_URL: >-
-        postgresql+psycopg2://${DB_USERNAME}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
+        postgresql+psycopg2://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
     env_file:
       - .env
     volumes:
-      - ./backend:/app # chnages in the /backend directory changes in also auto happenes in /app direcotry
-    networks:
-      - app_network
+      - ./backend:/app
+      - ./alembic.ini:/app/alembic.ini
+      - ./migrations:/app/migrations
 
   db:
     image: postgres:15
-    container_name: test_db
-    environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME}"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}"]
+      interval: 5s
       timeout: 5s
       retries: 5
-    env_file:
-      - .env
-    networks:
-      - app_network
 
 volumes:
   postgres_data:
-
-networks:
-  app_network:
-    driver: bridge
