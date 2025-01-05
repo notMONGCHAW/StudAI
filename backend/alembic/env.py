@@ -14,7 +14,7 @@ load_dotenv()
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Path to the app folder containing models (adjust if needed)
-APP_DIR = os.path.abspath(os.path.join(BASE_DIR, '../backend/src/models'))
+APP_DIR = os.path.abspath(os.path.join(BASE_DIR, '../src/models'))
 
 # Include APP_DIR in Python's module search path
 sys.path.append(APP_DIR)
@@ -87,6 +87,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-
-
-
