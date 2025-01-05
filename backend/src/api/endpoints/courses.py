@@ -1,17 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ...database.session import SessionLocal  # Adjusted import
+from ...database.session import  get_db  # Adjusted import
 from ...services.course_service import create_course, get_courses  # Adjusted import
 
 router = APIRouter()
 
 # Dependency to get the database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 @router.post("/courses/")
 def add_course(title: str, description: str, db: Session = Depends(get_db)):

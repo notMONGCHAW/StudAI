@@ -1,8 +1,10 @@
 from sqlalchemy import Column, Integer, String
-from ..database.session import Session 
-from .session import Base
-class Course(Base):
-    __tablename__ = "courses"
+from sqlalchemy.orm import DeclarativeBase
+
+Base = DeclarativeBase()
+
+class testObj(Base):
+    __tablename__ = "testObj"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
