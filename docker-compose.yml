@@ -22,6 +22,7 @@ services:
     volumes:
       - ./backend:/app
       - ./alembic.ini:/app/alembic.ini
+      - ./migrations:/app/migrations
 
   db:
     image: postgres:15
