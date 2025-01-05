@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase
 
-class Base(DeclarativeBase):
-    pass
+Model1Base = declarative_base()
 
-class testObj(Base):
+class testObj(Model1Base):
     __tablename__ = "testObj"
 
     id = Column(Integer, primary_key=True, index=True)
