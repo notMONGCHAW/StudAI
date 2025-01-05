@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
 
-Base = DeclarativeBase()
+class Base(DeclarativeBase):
+    pass
 
 class testObj(Base):
     __tablename__ = "testObj"

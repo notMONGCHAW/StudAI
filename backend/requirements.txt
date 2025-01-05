@@ -20,13 +20,13 @@ python-multipart==0.0.20 # For handling multipart form data
 orjson==3.10.12         # For fast JSON serialization
 Jinja2==3.1.5           # For templating
 MarkupSafe==3.0.2   # For escaping HTML
- alembic==1.14.0
+alembic==1.14.0
 
 # Database dependencies
 SQLAlchemy~=2.0.36      # For ORM
 psycopg2-binary==2.9.6  # For PostgreSQL connections
 pydantic==2.10.4        # For data validation
-alembic==1.10.0         # For database migrations
+       # For database migrations
 
 # AI/ML and NLP dependencies (for fine-tuning pre-trained models)
 torch==2.5.1
