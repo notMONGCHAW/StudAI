@@ -1,25 +1,27 @@
+# docker-compose.yml
 services:
   web:
     build:
-      context: ./backEnd
-      dockerfile: Dockerfile
+      context: .  # . and ./ are same
+      dockerfile: backend/Dockerfile
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
     environment:
+      PYTHONPATH: /app
       DATABASE_HOST: "db"
       DATABASE_PORT: ${DB_PORT}
       DATABASE_USER: ${DB_USERNAME}
       DATABASE_PASSWORD: ${DB_PASSWORD}
       DATABASE_NAME: ${DB_NAME}
       DATABASE_URL: >-
-        postgresql+psycopg2://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DATABASE_PORT}/${DATABASE_NAME}
+        postgresql+psycopg2://${DB_USERNAME}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./backend:/app # chnages in the /backend directory changes in also auto happenes in /app direcotry
     networks:
       - app_network
 
