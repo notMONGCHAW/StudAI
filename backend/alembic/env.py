@@ -20,10 +20,9 @@ APP_DIR = os.path.abspath(os.path.join(BASE_DIR, '../src/models'))
 sys.path.append(APP_DIR)
 
 # Import your SQLAlchemy Base where models are defined
-from base import Model1Base as Base
+from base import Model1Base as Base # fuck this error
 
 # Load environment variables from the .env file
-
 
 # Optional: Print directories for debugging
 print(f"BASE_DIR: {BASE_DIR}")
