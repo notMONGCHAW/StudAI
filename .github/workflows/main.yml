@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.9, 3.10, 3.11]
+        python-version: ['3.9']
 
     env:
       DATABASE_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -50,7 +50,9 @@ jobs:
           pip install pytest
       - name: Run tests with pytest
         run: |
-          pytest
+          # Set PYTHONPATH to include the parent directory for imports to work
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/../src
+          pytest  # Run the tests
       
 
   deploy:

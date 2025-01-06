@@ -4,22 +4,33 @@ from sqlalchemy.orm import Session
 from src.models.base import testObj
 
 
-def test_create_course(client: TestClient):
+def test_create_course(client: TestClient, db: Session):
     # Test creating a course
     course_data = {
         "title": "Test Course",
         "description": "A test course description",
         "cmt": "haka hu nana"
     }
-    
+
+    # Make the POST request to create the course
     response = client.post("/courses/", json=course_data)
     assert response.status_code == 200
-    
-    # Verify the course was created in the database
+
+    # Verify the course was created in the response
     created_course = response.json()
     assert created_course['title'] == course_data['title']
     assert created_course['description'] == course_data['description']
     assert created_course['cmt'] == course_data['cmt']
+
+    # Now, use the db fixture to query the database and check if the course was saved
+    stored_course = db.query(testObj).filter(testObj.title == course_data['title']).first()
+
+    # Verify the course is present in the database
+    assert stored_course is not None
+    assert stored_course.title == course_data['title']
+    assert stored_course.description == course_data['description']
+    assert stored_course.cmt == course_data['cmt']
+
 
 def test_get_courses(client: TestClient, db: Session):
     # Ensure there are courses in the database
