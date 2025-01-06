@@ -1,8 +1,7 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-import sys
-sys.path.append("..")  
-from ..src.models.base import testObj
+
+from src.models.base import testObj
 
 
 def test_create_course(client: TestClient):
