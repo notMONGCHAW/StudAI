@@ -1,9 +1,11 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
+import sys
+sys.path.append("..")  
 from ..src.models.base import testObj
 
 
-def test_create_course(client: TestClient , db: Session):
+def test_create_course(client: TestClient):
     # Test creating a course
     course_data = {
         "title": "Test Course",
