@@ -9,8 +9,8 @@ router = APIRouter()
 
 
 @router.post("/courses/")
-def add_course(title: str, description: str, cmt:str ,db: Session = Depends(get_db)):
-    return create_course(db=db, title=title, description=description,cmt=cmt)
+def add_course(title: str, description: str, cmt:str,img:str ,db: Session = Depends(get_db)):
+    return create_course(db=db, title=title, description=description,cmt=cmt,img=img)
 
 @router.get("/courses/")
 def read_courses(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
