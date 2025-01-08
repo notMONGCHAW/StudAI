@@ -11,3 +11,4 @@ class testObj(Model1Base):
     title = Column(String, index=True)
     description = Column(String)
     cmt = Column(String)
+    img = Column(String)

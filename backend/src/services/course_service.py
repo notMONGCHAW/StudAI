@@ -7,8 +7,8 @@ from ..models.base import testObj
 
 # Adjust the import based on your structure
 
-def create_course(db: Session, title: str, description: str , cmt : str):
-    db_course = testObj(title=title, description=description , cmt=cmt)
+def create_course(db: Session, title: str, description: str , cmt : str,img:str):
+    db_course = testObj(title=title, description=description , cmt=cmt,img=img)
     db.add(db_course)
     db.commit()
     db.refresh(db_course)
