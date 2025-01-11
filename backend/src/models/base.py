@@ -12,3 +12,12 @@ class testObj(Model1Base):
     description = Column(String)
     cmt = Column(String)
     img = Column(String)
+
+class testObjjjj(Model1Base):
+    __tablename__ = "testObjjj"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    description = Column(String)
+    cmt = Column(String)
+    img = Column(String)

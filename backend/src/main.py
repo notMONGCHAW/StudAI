@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from .api.endpoints.courses import router as courses_router
+from api.endpoints.courses import router as courses_router
+
 
 # Initialize FastAPI app
 app = FastAPI(
