@@ -2,7 +2,7 @@
 
 from sqlalchemy.orm import Session
 
-from ..models.base import testObj
+from models.base import testObj
 
 
 # Adjust the import based on your structure

@@ -1,0 +1,7 @@
+Metadata-Version: 2.2
+Name: studai-backend
+Version: 0.1.0
+Requires-Dist: fastapi
+Requires-Dist: sqlalchemy
+Requires-Dist: alembic
+Dynamic: requires-dist
